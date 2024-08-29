@@ -2,7 +2,9 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "migration:create": "typeorm migration:create",
+    "migration:run": "yarn build && yarn typeorm migration:run -d dist/infrastructure/database/database.js"
   },
   "dependencies": {
     "@google/generative-ai": "^0.17.1",
