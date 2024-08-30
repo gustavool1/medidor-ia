@@ -5,6 +5,8 @@ import { Database } from "../../infrastructure/database/database";
 import { removeBase64Prefix } from "../../helpers/remove-64-prefix";
 import { saveBase64AsImage } from "../../helpers/base64-to-image";
 import { DoubleReportException } from "../exceptions/double-report.exception";
+import { NotFoundMeasure } from "../exceptions/not-found-measure.exception";
+import { ConfirmationDuplicate } from "../exceptions/confirmation-duplicate.exception";
 
 export class MeasureService {
   private geminiService: GeminiService;
@@ -68,6 +70,24 @@ export class MeasureService {
       image_url: temporaryUrl,
       measure_uuid: saveMeasure.id,
       measure_value: geminiAnswer,
+    };
+  }
+
+  async confirm(id: string, confirmedValue: number) {
+    const measure = await this.uploadRepository.findOne({ where: { id } });
+
+    if (!measure) {
+      throw new NotFoundMeasure("Measure not found");
+    }
+    if (measure.confirmedValue) {
+      throw new ConfirmationDuplicate("Confirmation duplicate");
+    }
+
+    measure.confirmedValue = confirmedValue;
+    await this.uploadRepository.save(measure);
+
+    return {
+      success: true,
     };
   }
 }

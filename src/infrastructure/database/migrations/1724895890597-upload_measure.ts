@@ -33,8 +33,8 @@ export class UploadMeasure1724895890597 implements MigrationInterface {
           },
           {
             name: "confirmed_value",
-            type: "boolean",
-            default: false,
+            type: "tinyint",
+            default: 0,
           },
           {
             name: "image_url_temporary",
