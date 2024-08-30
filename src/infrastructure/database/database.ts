@@ -3,7 +3,7 @@ import { UploadsEntity } from "./entities/uploads.entity";
 
 export const Database = new DataSource({
   type: "mysql",
-  host: "localhost",
+  host: "mysql",
   port: 3306,
   username: "root",
   password: "password",
