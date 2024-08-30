@@ -7,6 +7,8 @@ COPY package*.json ./
 
 RUN yarn global add nodemon
 
+RUN yarn global add typescript
+
 RUN yarn
 
 COPY . .
