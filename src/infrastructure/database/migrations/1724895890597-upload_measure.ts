@@ -31,10 +31,11 @@ export class UploadMeasure1724895890597 implements MigrationInterface {
             name: "measure_type",
             type: "varchar",
           },
+
           {
-            name: "confirmed_value",
-            type: "tinyint",
-            default: 0,
+            name: "has_confirmed",
+            type: "boolean",
+            default: false,
           },
           {
             name: "image_url_temporary",

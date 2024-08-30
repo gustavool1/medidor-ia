@@ -80,11 +80,12 @@ export class MeasureService {
     if (!measure) {
       throw new NotFoundMeasure("Measure not found");
     }
-    if (measure.confirmedValue) {
+    if (measure.hasConfirmed) {
       throw new ConfirmationDuplicate("Confirmation duplicate");
     }
 
-    measure.confirmedValue = confirmedValue;
+    measure.hasConfirmed = true;
+    measure.measureValue = confirmedValue;
     await this.uploadRepository.save(measure);
 
     return {

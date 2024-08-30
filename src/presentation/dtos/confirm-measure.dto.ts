@@ -9,10 +9,7 @@ const confirmSchema = yup.object().shape({
     .string()
     .matches(uuidV4Regex, "Invalid UUID format")
     .required(),
-  confirmed_value: yup
-    .number()
-    .oneOf([0, 1], "Only numbers 1 or 0 accepted for the confirmed_value field")
-    .required("confirmed_value is required"),
+  confirmed_value: yup.number().required("confirmed_value is required"),
 });
 
 export const confirmValidation = async (

@@ -17,8 +17,8 @@ export class UploadsEntity {
   @Column({ name: "measure_value", type: "int" })
   measureValue: number = 0;
 
-  @Column({ name: "confirmed_value", type: "tinyint", default: 0 })
-  confirmedValue: number = 0;
+  @Column({ name: "has_confirmed", type: "boolean", default: false })
+  hasConfirmed: boolean = false;
 
   @Column({ name: "image_url_temporary", type: "date", nullable: true })
   imageUrlTemporary: string | null = null;
