@@ -99,7 +99,7 @@ export class MeasureService {
         measure_uuid: measure.id,
         measure_datetime: measure.measureDatetime,
         measure_type: measure.measureType,
-        has_confirmed: measure.measureValue,
+        has_confirmed: measure.hasConfirmed,
         image_url: measure.imageUrlTemporary,
       };
     });
