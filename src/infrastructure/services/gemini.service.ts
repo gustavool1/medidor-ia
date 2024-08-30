@@ -31,7 +31,16 @@ export class GeminiService {
     }
   }
 
-  async sendImage(imageBase64: string) {
+  extractingCorrectData(geminiResponse: string) {
+    if (!geminiResponse) {
+      return 0;
+    }
+    geminiResponse = geminiResponse.replace(/\n/g, "");
+
+    return Number(geminiResponse);
+  }
+
+  async sendImage(imageBase64: string, measureType: string) {
     const imageType = await getMimeType(imageBase64);
     const imageData = {
       inlineData: {
@@ -40,9 +49,18 @@ export class GeminiService {
       },
     };
 
-    return await this.model.generateContent([
-      "Me diga quantas ML tem nesse recipiente",
+    const prompt =
+      measureType === "water"
+        ? "Me diga quantas ML tem nesse medidor de agua no seguinte formato <int>"
+        : "Me diga quanto marca nesse medidor de gas no seguinte formato <int>";
+
+    const geminiResponse = await this.model.generateContent([
+      prompt,
       imageData,
     ]);
+
+    return this.extractingCorrectData(
+      geminiResponse.response?.candidates?.[0].content?.parts?.[0].text ?? ""
+    );
   }
 }

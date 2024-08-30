@@ -4,7 +4,10 @@ import * as yup from "yup";
 const uploadSchema = yup.object().shape({
   image: yup.string().required(),
   customer_code: yup.string().required(),
-  measure_datetime: yup.string().required(),
+  measure_datetime: yup
+    .date()
+    .required("Measure datetime is required")
+    .typeError("Measure datetime must be a valid date"),
   measure_type: yup
     .string()
     .oneOf(["WATER", "GAS"], "Only WATER or GAS are allowed")

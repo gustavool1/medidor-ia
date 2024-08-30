@@ -1,20 +1,31 @@
 import { Repository } from "typeorm";
-import { GeminiService } from "../../infrastructure/services/gemini.service";
 import { Request, Response } from "express";
-import { UploadsEntity } from "../../infrastructure/database/entities/uploads.entity";
-import { Database } from "../../infrastructure/database/database";
+import { MeasureService } from "../../core/use-cases/measure.service";
+import { DoubleReportException } from "../../core/exceptions/double-report.exception";
 
 export class MeasureController {
-  private geminiService: GeminiService;
-  private uploadRepository: Repository<UploadsEntity>;
-
+  private measureService: MeasureService;
   constructor() {
-    this.geminiService = new GeminiService();
-    this.uploadRepository = Database.getRepository(UploadsEntity);
+    this.measureService = new MeasureService();
   }
 
   async upload(req: Request, res: Response) {
-    const geminiAnswer = await this.geminiService.sendImage(req.body.image);
-    res.send(geminiAnswer);
+    try {
+      res.send(
+        await this.measureService.upload(
+          req.body.image,
+          req.body.customer_code,
+          req.body.measure_datetime,
+          req.body.measure_type
+        )
+      );
+    } catch (e) {
+      if (e instanceof DoubleReportException) {
+        res.status(409).send({
+          error_code: "DOUBLE_REPORT",
+          error_description: "Leitura do mês já realizada",
+        });
+      }
+    }
   }
 }
