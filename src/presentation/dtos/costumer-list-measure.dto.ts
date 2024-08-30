@@ -19,7 +19,6 @@ export const costumerListValidation = async (
   next: NextFunction
 ) => {
   const payload = req.query;
-  console.log(payload);
 
   try {
     if (typeof payload.measure_type === "string") {
