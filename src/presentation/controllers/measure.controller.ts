@@ -55,4 +55,22 @@ export class MeasureController {
       }
     }
   }
+
+  async customerCodeList(req: Request, res: Response) {
+    try {
+      res.send(
+        await this.measureService.getCustomerMeasures(
+          req.params.customerCode,
+          req.query
+        )
+      );
+    } catch (e) {
+      if (e instanceof NotFoundMeasure) {
+        res.status(404).send({
+          error_code: "MEASURES_NOT_FOUND",
+          error_description: "Nenhuma leitura encontrada",
+        });
+      }
+    }
+  }
 }

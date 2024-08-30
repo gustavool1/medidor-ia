@@ -7,6 +7,7 @@ import { saveBase64AsImage } from "../../helpers/base64-to-image";
 import { DoubleReportException } from "../exceptions/double-report.exception";
 import { NotFoundMeasure } from "../exceptions/not-found-measure.exception";
 import { ConfirmationDuplicate } from "../exceptions/confirmation-duplicate.exception";
+import { ParsedQs } from "qs";
 
 export class MeasureService {
   private geminiService: GeminiService;
@@ -17,7 +18,7 @@ export class MeasureService {
     this.uploadRepository = Database.getRepository(UploadsEntity);
   }
 
-  async checkIfReportAlreadyExistsThisMonth(
+  private async checkIfReportAlreadyExistsThisMonth(
     customerCode: string,
     measureDatetime: Date,
     measureType: string
@@ -88,6 +89,41 @@ export class MeasureService {
 
     return {
       success: true,
+    };
+  }
+
+  private formatGetCostumerResponse(measures: UploadsEntity[]) {
+    return measures.map((measure) => {
+      return {
+        measure_uuid: measure.id,
+        measure_datetime: measure.measureDatetime,
+        measure_type: measure.measureType,
+        has_confirmed: measure.measureValue,
+        image_url: measure.imageUrlTemporary,
+      };
+    });
+  }
+
+  async getCustomerMeasures(customerCode: string, queryParams?: ParsedQs) {
+    const measureType =
+      typeof queryParams?.measure_type === "string"
+        ? queryParams.measure_type
+        : undefined;
+
+    const measures = await this.uploadRepository.find({
+      where: {
+        customerCode: customerCode,
+        measureType: measureType?.toLocaleUpperCase(),
+      },
+    });
+
+    if (!measures || measures.length === 0) {
+      throw new NotFoundMeasure("Measure not found");
+    }
+
+    return {
+      customer_code: customerCode,
+      measures: this.formatGetCostumerResponse(measures),
     };
   }
 }
