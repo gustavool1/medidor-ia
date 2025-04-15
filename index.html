@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Box Champs - Invite</title>
+    <title>Box Champs - Invitex</title>
     <link rel="stylesheet" href="./style.css">
     <script>
       let customURL = ''
@@ -15,13 +15,12 @@
 
         customURL = `pg://game-invite?id=${id}&inviteId=${inviteId}&managerName=${managerName}&gameName=${gameName}`;
 
-        window.location = customURL;
-
-        // Fallback: após 2 segundos, redireciona para a Google Play Store se o protocolo personalizado não funcionar
-        // setTimeout(() => {
-        //   window.location = "https://play.google.com/store/apps/details?id=com.box_champs";
-        // }, 2000);
+        // Pequeno delay pode ajudar alguns browsers a permitir
+        setTimeout(() => {
+          window.location = customURL;
+        }, 100); // experimente com 100ms ou 500ms
       };
+
 
       function redirectToCustomURL() {
         window.location = customURL;
