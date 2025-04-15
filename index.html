@@ -1,11 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
+  <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Teste Git Hub Pages </h1> 
-</body>
+    <title>Abrindo convite...</title>
+    <script>
+      window.onload = function () {
+        const params = new URLSearchParams(window.location.search);
+        const gameId = params.get("gameId");
+        const inviteId = params.get("inviteId");
+        const managerName = params.get("managerName");
+        const gameName = params.get("gameName");
+
+        const customURL = `pg://game-invite?gameId=${gameId}&inviteId=${inviteId}&managerName=${managerName}&gameName=${gameName}`;
+
+        // Tenta abrir o app
+        window.location = customURL;
+
+        // Fallback: após 2s, redireciona para a loja se o app não abrir
+        setTimeout(() => {
+          window.location = "https://play.google.com/store/apps/details?id=SEU.PACOTE.ANDROID";
+        }, 2000);
+      };
+    </script>
+  </head>
+  <body>
+    <p>Abrindo o convite do jogo...</p>
+  </body>
 </html>
