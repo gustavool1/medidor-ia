@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8">
     <title>Box Champs - Invite</title>
+    <link rel="stylesheet" href="./style.css">
     <script>
+      let customURL = ''
       window.onload = function () {
         const params = new URLSearchParams(window.location.search);
         const id = params.get("id");
@@ -11,19 +13,25 @@
         const managerName = params.get("managerName");
         const gameName = params.get("gameName");
 
-        const customURL = `pg://game-invite?id=${id}&inviteId=${inviteId}&managerName=${managerName}&gameName=${gameName}`;
+        customURL = `pg://game-invite?id=${id}&inviteId=${inviteId}&managerName=${managerName}&gameName=${gameName}`;
 
-        // Tentar redirecionar para o protocolo personalizado
         window.location = customURL;
 
         // Fallback: após 2 segundos, redireciona para a Google Play Store se o protocolo personalizado não funcionar
-        setTimeout(() => {
-          window.location = "https://play.google.com/store/apps/details?id=com.box_champs";
-        }, 2000);
+        // setTimeout(() => {
+        //   window.location = "https://play.google.com/store/apps/details?id=com.box_champs";
+        // }, 2000);
       };
+
+      function redirectToCustomURL() {
+        window.location = customURL;
+      }
     </script>
   </head>
   <body>
-    <p>Opening Invite.x..</p>  
+    <div class="logo-container">
+      <img src="./logo.svg" alt="Box Champs">
+      <button class="invite-button" onclick="redirectToCustomURL()">Invite Players</button>
+    </div>
   </body>
 </html>
