@@ -13,16 +13,17 @@
 
         const customURL = `pg://game-invite?id=${id}&inviteId=${inviteId}&managerName=${managerName}&gameName=${gameName}`;
 
+        // Tentar redirecionar para o protocolo personalizado
         window.location = customURL;
 
-        // Fallback: after 2s, redirect to Google Play Store
-        // setTimeout(() => {
-        //   window.location = "https://play.google.com/store/apps/details?id=com.box_champs";
-        // }, 2000);
+        // Fallback: após 2 segundos, redireciona para a Google Play Store se o protocolo personalizado não funcionar
+        setTimeout(() => {
+          window.location = "https://play.google.com/store/apps/details?id=com.box_champs";
+        }, 2000);
       };
     </script>
   </head>
   <body>
-    <p>Opening Invite...</p>
+    <p>Opening Invite...</p>  
   </body>
 </html>
