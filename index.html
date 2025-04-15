@@ -2,28 +2,27 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Abrindo convite...</title>
+    <title>Box Champs - Invite</title>
     <script>
       window.onload = function () {
         const params = new URLSearchParams(window.location.search);
-        const gameId = params.get("gameId");
+        const id = params.get("id");
         const inviteId = params.get("inviteId");
         const managerName = params.get("managerName");
         const gameName = params.get("gameName");
 
-        const customURL = `pg://game-invite?gameId=${gameId}&inviteId=${inviteId}&managerName=${managerName}&gameName=${gameName}`;
+        const customURL = `pg://game-invite?id=${id}&inviteId=${inviteId}&managerName=${managerName}&gameName=${gameName}`;
 
-        // Tenta abrir o app
         window.location = customURL;
 
-        // Fallback: após 2s, redireciona para a loja se o app não abrir
+        // Fallback: after 2s, redirect to Google Play Store
         // setTimeout(() => {
         //   window.location = "https://play.google.com/store/apps/details?id=com.box_champs";
-        // }, 10000);
+        // }, 2000);
       };
     </script>
   </head>
   <body>
-    <p>Abrindo o convite do jogo...</p>
+    <p>Opening Invite...</p>
   </body>
 </html>
