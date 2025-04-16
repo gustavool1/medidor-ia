@@ -2,8 +2,10 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Box Champs - Invitex</title>
     <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./logo.svg" type="image/svg+xml">
     <script>
       let customURL = ''
       window.onload = function () {
@@ -14,11 +16,8 @@
         const gameName = params.get("gameName");
 
         customURL = `pg://game-invite?id=${id}&inviteId=${inviteId}&managerName=${managerName}&gameName=${gameName}`;
+        window.location = customURL;
 
-        // Pequeno delay pode ajudar alguns browsers a permitir
-        setTimeout(() => {
-          window.location = customURL;
-        }, 500); // experimente com 100ms ou 500ms
       };
 
 
@@ -30,7 +29,9 @@
   <body>
     <div class="logo-container">
       <img src="./logo.svg" alt="Box Champs">
-      <button class="invite-button" onclick="redirectToCustomURL()">Invite Players</button>
+      <p class="redirect-paragraph">If you're not redirected automatically, please click on the button below.</p>
+      <button class="invite-button" onclick="redirectToCustomURL()">Join Game!</button>
+
     </div>
   </body>
 </html>

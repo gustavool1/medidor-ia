@@ -1,33 +1,66 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 html, body {
-    height: 100%; 
-    margin: 0;  
-  }
-  
-  body {
-    background-color: #011c18;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif; 
-  }
-  .logo-container {
-    display:flex;
-    flex-direction: column;
-  }
+  height: 100%;
+  width: 100%;
+  background-color: #011c18;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+}
+
+.logo-container img {
+  width: 100%;
+  height: auto;
+  max-width: 300px;
+}
+
+.invite-button {
+  background-color: #00f0c8;
+  color: black;
+  font-weight: 500;
+  border: none;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 18px;
+  cursor: pointer;
+  margin-top: 40px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.invite-button:hover {
+  background-color: #00dab4;
+}
+.redirect-paragraph {
+  font-size: 18px;
+  color: white;
+  padding: 20px;
+}
+
+@media (max-width: 400px) {
   .invite-button {
-    background-color: #00f0c8; 
-    color: black;
-    font-weight: 500;
-    font-family: Arial, sans-serif;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 12px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    margin-top: 40px;
+    font-size: 20px;
+    padding: 18px;
   }
 
-  .invite-button:hover {
-    background-color: #00dab4; 
-  }  
+  .logo-container img {
+    max-width: 90vw;
+  }
+}
